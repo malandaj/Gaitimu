@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="MarchaLibre_ID">2</integer>
+    <integer name="MarchaTandem_ID">3</integer>
+    <integer name="PosLibre_ID">6</integer>
+    <integer name="PosTanIz_ID">7</integer>
+    <integer name="PosTanDer_ID">8</integer>
+    <integer name="Sentado_ID">9</integer>
+    <integer name="DedosIz_ID">12</integer>
+    <integer name="DedosDer_ID">13</integer>
+    <integer name="DedosNarIz_ID">16</integer>
+    <integer name="DedosNarDer_ID">17</integer>
+    <integer name="MovManoIz_ID">20</integer>
+    <integer name="MovManoDer_ID">21</integer>
+    <integer name="Tobillo_ID">24</integer>
+    <integer name="Tobillo_Der_ID">25</integer>
+    <integer name="Settings_ID">27</integer>
+</resources>

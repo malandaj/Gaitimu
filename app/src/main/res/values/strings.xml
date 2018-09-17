@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Gaitimu</string>
+    <string name="marcha_str">Marcha</string>
+    <string name="libre_str">Libre</string>
+    <string name="tandem_str">Tandem</string>
+    <string name="pos_str">Posición</string>
+    <string name="tandem_iz_str">Tandem Izquierda</string>
+    <string name="tandem_der_str">Tandem Derecha</string>
+    <string name="senta_str">Sentado</string>
+    <string name="per_dedos_str">Persecusión de dedos</string>
+    <string name="iz_str">Izquierda</string>
+    <string name="der_str">Derecha</string>
+    <string name="dedo_nariz_str">Dedo-Nariz</string>
+    <string name="mov_alter_str">Movimientos alternados rápidos de mano</string>
+    <string name="tobillo_str">Recorrido de tobillo</string>
+    <string name="config_str">Configuración</string>
+    <string name="patient_name">Nombre</string>
+    <string name="patient_name_hint">Nombre del paciente</string>
+    <string name="patient_age">Edad</string>
+    <string name="patient_age_hint">Edad del paciente</string>
+    <string name="patient_gender">Género</string>
+    <string name="patient_male">Hombre</string>
+    <string name="patient_female">Mujer</string>
+    <string name="patient_location">En donde vive</string>
+    <string name="patient_location_hint">Donde vive el paciente</string>
+    <string name="patient_observations">Observaciones</string>
+    <string name="patient_observations_hint">Observaciones</string>
+    <string name="add_patient">Agregar paciente</string>
+    <string name="lblIP">IP of WebSocket Server</string>
+    <string name="lblPort">Port of Websocket Server</string>
+    <string name="lblSensors">Number of sensors</string>
+    <string name="btn_save_settings">Save settings</string>
+    <string name="btn_connect">Connect to server</string>
+    <string name="wsIP">ws_server_ip</string>
+    <string name="wsPort">ws_server_port</string>
+    <string name="nSensors">n_sensors</string>
+    <string name="emp_registro_str">Empezar registro</string>
+    <string name="term_registro_str">Terminar registro</string>
+    <string name="accX_str">acc X</string>
+    <string name="accY_str">acc Y</string>
+    <string name="accZ_str">acc Z</string>
+    <string name="gyroX_str">gyro X</string>
+    <string name="gyroY_str">gyro Y</string>
+    <string name="gyroZ_str">gyro Z</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

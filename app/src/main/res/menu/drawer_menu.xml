@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:checkableBehavior="single">
+        <item android:title="@string/marcha_str">
+            <menu>
+                <item
+                    android:id="@+id/marcha_lib"
+                    android:title="@string/libre_str"/>
+                <item
+                    android:id="@+id/marcha_tan"
+                    android:title="@string/tandem_str"/>
+            </menu>
+        </item>
+    </group>
+
+    <group
+        android:id="@+id/group_posicion"
+        android:checkableBehavior="single">
+        <item android:title="@string/pos_str">
+            <menu>
+                <item
+                    android:id="@+id/pos_lib"
+                    android:title="@string/libre_str"/>
+                <item
+                    android:id="@+id/pos_tan_iz"
+                    android:title="@string/tandem_iz_str"/>
+                <item
+                    android:id="@+id/pos_tan_der"
+                    android:title="@string/tandem_der_str"/>
+            </menu>
+        </item>
+    </group>
+
+    <item
+        android:id="@+id/sentado"
+        android:title="@string/senta_str">
+    </item>
+
+    <group
+        android:id="@+id/group_persecusion"
+        android:checkableBehavior="single">
+        <item android:title="@string/per_dedos_str">
+            <menu>
+                <item
+                    android:id="@+id/per_iz"
+                    android:title="@string/iz_str"/>
+                <item
+                    android:id="@+id/per_der"
+                    android:title="@string/der_str"/>
+            </menu>
+        </item>
+    </group>
+
+    <group
+        android:id="@+id/group_dedo_nariz"
+        android:checkableBehavior="single">
+        <item android:title="@string/dedo_nariz_str">
+            <menu>
+                <item
+                    android:id="@+id/de_na_iz"
+                    android:title="@string/iz_str"/>
+                <item
+                    android:id="@+id/de_na_der"
+                    android:title="@string/der_str"/>
+            </menu>
+        </item>
+    </group>
+
+    <group
+        android:id="@+id/group_mov_alter"
+        android:checkableBehavior="single">
+        <item android:title="@string/mov_alter_str">
+            <menu>
+                <item
+                    android:id="@+id/mov_alter_iz"
+                    android:title="@string/iz_str"/>
+                <item
+                    android:id="@+id/mov_alter_der"
+                    android:title="@string/der_str"/>
+            </menu>
+        </item>
+    </group>
+
+    <group
+        android:id="@+id/group_tobillo"
+        android:checkableBehavior="single">
+        <item android:title="@string/tobillo_str">
+            <menu>
+                <item
+                    android:id="@+id/tobillo_iz"
+                    android:title="@string/iz_str"/>
+                <item
+                    android:id="@+id/tobillo_der"
+                    android:title="@string/der_str"/>
+            </menu>
+        </item>
+    </group>
+
+    <group
+        android:id="@+id/group_config"
+        android:checkableBehavior="single">
+        <item android:title="@string/config_str"/>
+    </group>
+</menu>
