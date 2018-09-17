@@ -162,8 +162,6 @@ class gaitPlotFragment : Fragment() {
     }
 
     private inner class webSocketListener : WebSocketListener() {
-        var mLastRandom = 0
-
         override fun onOpen(webSocket: WebSocket, response: Response) {
             super.onOpen(webSocket, response)
         }
@@ -171,7 +169,7 @@ class gaitPlotFragment : Fragment() {
         override fun onMessage(webSocket: WebSocket, text: String) {
             mHandler.post {
                 graphLastXValue += 5.0
-                if(graphLastXValue.rem(10.0) == 0.0){
+                if(graphLastXValue.rem(25.0) == 0.0){
                     sensors!!.forEach {
                         it.updateSeries(graphLastXValue)
                     }
@@ -188,17 +186,10 @@ class gaitPlotFragment : Fragment() {
             println(t.message)
             super.onFailure(webSocket, t, response)
         }
-
-        private fun getRandom(): Double {
-            mLastRandom++
-            return Math.sin(mLastRandom * 0.5) * 10.0 * (Math.random() * 10 + 1)
-        }
-
     }
 
     private inner class MySensor{
         private var id:Int = 0
-        private var plot:GraphView?=null
         private var dataSeries:ArrayList<LineGraphSeries<DataPoint>> = ArrayList()
         private var context:Context?=null
         private var view:View?=null
@@ -226,12 +217,6 @@ class gaitPlotFragment : Fragment() {
                 chartView.plot.addSeries(dataSeries[j])
             }
             view!!.chartLayout.addView(chartView)
-        }
-
-        fun resetSeries(value:Double){
-            for(j in 0 until 6){
-                dataSeries[j].resetData(arrayOf(DataPoint(0.0, value)))
-            }
         }
 
         fun updateSeries(xIndex:Double){
