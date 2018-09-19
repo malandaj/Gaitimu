@@ -19,7 +19,6 @@ import org.json.JSONObject
 import com.jjoe64.graphview.series.LineGraphSeries
 import kotlinx.android.synthetic.main.chart.view.*
 
-
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -41,7 +40,6 @@ class gaitPlotFragment : Fragment() {
     private var port:Int?=null
     private var nSensors:Int?=null
     private var patient:String ?= null
-    private var graphLastXValue:Double = 0.0
     private var mHandler = Handler()
     private var sensors:ArrayList<MySensor>?=null
 
@@ -167,12 +165,26 @@ class gaitPlotFragment : Fragment() {
         }
 
         override fun onMessage(webSocket: WebSocket, text: String) {
+            val jsonObject = JSONObject(text)
+            val id = (jsonObject.getString("ID").toInt()) - 1
+            val lectures = jsonObject.getJSONArray("lectures")
+//            val accXIndex = arrayOf(0, 8, 16, 24, 32)
+//            val accYIndex = arrayOf(1, 9, 17, 25, 33)
+//            val accZIndex = arrayOf(2, 10, 18, 26, 34)
+//            val gyroXIndex = arrayOf(3, 11, 19, 27, 35)
+//            val gyroYIndex = arrayOf(4, 12, 20, 28, 36)
+//            val gyroZIndex = arrayOf(5, 13, 21, 29, 37)
+
             mHandler.post {
-                graphLastXValue += 5.0
-                if(graphLastXValue.rem(25.0) == 0.0){
-                    sensors!!.forEach {
-                        it.updateSeries(graphLastXValue)
-                    }
+                sensors!![id].graphLastXValue += 5.0
+                if(sensors!![id].graphLastXValue.rem(15.0) == 0.0){
+                    sensors!![id].updateSeries(sensors!![id].graphLastXValue, arrayOf(
+                            lectures.getInt(0),
+                            lectures.getInt(1),
+                            lectures.getInt(2),
+                            lectures.getInt(3),
+                            lectures.getInt(4),
+                            lectures.getInt(5)))
                 }
             }
             super.onMessage(webSocket, text)
@@ -195,6 +207,7 @@ class gaitPlotFragment : Fragment() {
         private var view:View?=null
         private var titles:Array<String> = arrayOf("accX", "accY", "accZ", "gyroX", "gyroY", "gyroZ")
         private var colors:Array<Int> = arrayOf(Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.BLACK, Color.MAGENTA)
+        var graphLastXValue:Double = 0.0
 
         constructor(id:Int, context: Context, view: View){
             this.id = id
@@ -219,9 +232,9 @@ class gaitPlotFragment : Fragment() {
             view!!.chartLayout.addView(chartView)
         }
 
-        fun updateSeries(xIndex:Double){
+        fun updateSeries(xIndex:Double, values:Array<Int>){
             for(j in 0 until 6){
-                val dataPoint = DataPoint(xIndex, Math.random().times(2))
+                val dataPoint = DataPoint(xIndex, values[j].toDouble())
                 dataSeries[j].appendData(dataPoint, true, 300)
             }
         }
