@@ -2,7 +2,6 @@ package tech.eroland.gaitimu
 
 import android.content.Context
 import android.graphics.Color
-import android.hardware.Sensor
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -10,7 +9,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.DataPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_gait_plot.view.*
@@ -78,14 +76,15 @@ class gaitPlotFragment : Fragment() {
         }
 
         view.button_terminar.setOnClickListener {
-            var jsonObject = JSONObject()
+            val jsonObject = JSONObject()
             jsonObject.put("type", "stopRecording")
-            ws!!.send(jsonObject.toString())
-
-            jsonObject = JSONObject()
-            jsonObject.put("type", "saveZip")
             jsonObject.put("name", activity!!.toolbar.title)
             ws!!.send(jsonObject.toString())
+
+//            jsonObject = JSONObject()
+//            jsonObject.put("type", "saveZip")
+//            jsonObject.put("name", activity!!.toolbar.title)
+//            ws!!.send(jsonObject.toString())
 
             ws!!.close(NORMAL_CLOSURE_STATUS, "Goodbye !")
         }
@@ -98,15 +97,10 @@ class gaitPlotFragment : Fragment() {
         val wsListener = webSocketListener()
         ws = client.newWebSocket(request, wsListener)
         client.dispatcher().executorService().shutdown()
-        ws!!.send(patient)
+        ws!!.send(patient!!)
         val jsonObject = JSONObject()
         jsonObject.put("type", "startRecording")
         ws!!.send(jsonObject.toString())
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
     }
 
     override fun onAttach(context: Context) {
@@ -177,7 +171,7 @@ class gaitPlotFragment : Fragment() {
 
             mHandler.post {
                 sensors!![id].graphLastXValue += 5.0
-                if(sensors!![id].graphLastXValue.rem(15.0) == 0.0){
+                if(sensors!![id].graphLastXValue.rem(10.0) == 0.0){
                     sensors!![id].updateSeries(sensors!![id].graphLastXValue, arrayOf(
                             lectures.getInt(0),
                             lectures.getInt(1),
@@ -188,10 +182,6 @@ class gaitPlotFragment : Fragment() {
                 }
             }
             super.onMessage(webSocket, text)
-        }
-
-        override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-            super.onClosing(webSocket, code, reason)
         }
 
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
@@ -208,6 +198,7 @@ class gaitPlotFragment : Fragment() {
         private var titles:Array<String> = arrayOf("accX", "accY", "accZ", "gyroX", "gyroY", "gyroZ")
         private var colors:Array<Int> = arrayOf(Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.BLACK, Color.MAGENTA)
         var graphLastXValue:Double = 0.0
+        private var names:Array<String> = arrayOf("Brazo Derecho", "Brazo Izquierdo", "Pierna Derecha", "Pierna Izquierda", "Espalda")
 
         constructor(id:Int, context: Context, view: View){
             this.id = id
@@ -219,7 +210,7 @@ class gaitPlotFragment : Fragment() {
 
         private fun addplot(){
             val chartView = layoutInflater.inflate(R.layout.chart, null)
-            chartView.plot.title = "Sensor ${this.id.plus(1)}"
+            chartView.plot.title = "Sensor ${this.id.plus(1)} - ${names[this.id]}"
             chartView.plot.viewport.isXAxisBoundsManual = true
             chartView.plot.viewport.setMinX(0.0)
             chartView.plot.viewport.setMaxX(300.0)

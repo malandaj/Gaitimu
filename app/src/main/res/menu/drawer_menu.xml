@@ -7,10 +7,10 @@
             <menu>
                 <item
                     android:id="@+id/marcha_lib"
-                    android:title="@string/libre_str"/>
+                    android:title="@string/marcha_libre_str"/>
                 <item
                     android:id="@+id/marcha_tan"
-                    android:title="@string/tandem_str"/>
+                    android:title="@string/marcha_tandem_str"/>
             </menu>
         </item>
     </group>
@@ -22,13 +22,13 @@
             <menu>
                 <item
                     android:id="@+id/pos_lib"
-                    android:title="@string/libre_str"/>
+                    android:title="@string/pos_libre_str"/>
                 <item
                     android:id="@+id/pos_tan_iz"
-                    android:title="@string/tandem_iz_str"/>
+                    android:title="@string/pos_tandem_iz_str"/>
                 <item
                     android:id="@+id/pos_tan_der"
-                    android:title="@string/tandem_der_str"/>
+                    android:title="@string/pos_tandem_der_str"/>
             </menu>
         </item>
     </group>
@@ -45,10 +45,10 @@
             <menu>
                 <item
                     android:id="@+id/per_iz"
-                    android:title="@string/iz_str"/>
+                    android:title="@string/per_dedos_iz_str"/>
                 <item
                     android:id="@+id/per_der"
-                    android:title="@string/der_str"/>
+                    android:title="@string/per_dedos_der_str"/>
             </menu>
         </item>
     </group>
@@ -60,10 +60,10 @@
             <menu>
                 <item
                     android:id="@+id/de_na_iz"
-                    android:title="@string/iz_str"/>
+                    android:title="@string/dedo_nariz_iz_str"/>
                 <item
                     android:id="@+id/de_na_der"
-                    android:title="@string/der_str"/>
+                    android:title="@string/dedo_nariz_der_str"/>
             </menu>
         </item>
     </group>
@@ -75,10 +75,10 @@
             <menu>
                 <item
                     android:id="@+id/mov_alter_iz"
-                    android:title="@string/iz_str"/>
+                    android:title="@string/mov_alter_iz_str"/>
                 <item
                     android:id="@+id/mov_alter_der"
-                    android:title="@string/der_str"/>
+                    android:title="@string/mov_alter_der_str"/>
             </menu>
         </item>
     </group>
@@ -90,10 +90,10 @@
             <menu>
                 <item
                     android:id="@+id/tobillo_iz"
-                    android:title="@string/iz_str"/>
+                    android:title="@string/tobillo_str_iz_str"/>
                 <item
                     android:id="@+id/tobillo_der"
-                    android:title="@string/der_str"/>
+                    android:title="@string/tobillo_str_der_str"/>
             </menu>
         </item>
     </group>

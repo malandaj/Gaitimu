@@ -39,10 +39,10 @@ class DBManager{
         return id
     }
 
-    fun delete(selection: String, selectionArgs: Array<String>):Int{
-        val count = sqlDB!!.delete(dbTable, selection, selectionArgs)
-        return count
-    }
+//    fun delete(selection: String, selectionArgs: Array<String>):Int{
+//        val count = sqlDB!!.delete(dbTable, selection, selectionArgs)
+//        return count
+//    }
 
     fun query(projection: Array<String>, selection:String, selectionArgs:Array<String>, sortOrder:String):Cursor{
         val qb = SQLiteQueryBuilder()

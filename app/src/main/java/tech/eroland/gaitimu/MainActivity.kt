@@ -13,7 +13,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile
 import android.content.Intent
 import android.net.Uri
 import com.mikepenz.materialdrawer.model.interfaces.Nameable
-import android.support.v4.app.Fragment;
+import android.support.v4.app.Fragment
 
 class MainActivity : AppCompatActivity(), gaitPlotFragment.OnFragmentInteractionListener {
     private var dbManager:DBManager?=null
@@ -75,6 +75,7 @@ class MainActivity : AppCompatActivity(), gaitPlotFragment.OnFragmentInteraction
         val fragmentClass = gaitPlotFragment::class.java
         if (drawerItem is Nameable<*>) {
             val title = (drawerItem as Nameable<*>).name.getText(this)
+
             when (title){
                 this.getString(R.string.config_str) -> {
                     val intent = Intent(this, SettingsActivity::class.java)
@@ -95,9 +96,9 @@ class MainActivity : AppCompatActivity(), gaitPlotFragment.OnFragmentInteraction
                         val patient = getPatient(headerResult!!.activeProfile.name.toString())
                         val bundle = Bundle()
                         bundle.putString("patient", patient.toJSON().toString())
-                        fragment!!.arguments = bundle
+                        fragment.arguments = bundle
                     }catch (e:Exception) {
-                        e.printStackTrace();
+                        e.printStackTrace()
                     }
                     val fragmentManager = supportFragmentManager
                     fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit()
@@ -110,7 +111,7 @@ class MainActivity : AppCompatActivity(), gaitPlotFragment.OnFragmentInteraction
         val profiles = ArrayList<IProfile<*>>()
         val projection = arrayOf("ID", "Name")
         val selectionArgs = arrayOf(title)
-        val cursor = dbManager!!.query(projection, "Name like ?", selectionArgs, "ID")
+        val cursor = dbManager!!.query(projection, "Name like ?", selectionArgs, "Name")
         if(cursor.moveToFirst()){
             do {
                 val id = cursor.getString(cursor.getColumnIndex("ID"))
@@ -133,12 +134,12 @@ class MainActivity : AppCompatActivity(), gaitPlotFragment.OnFragmentInteraction
         val cursor = dbManager!!.query(projection, "Name like ?", selectionArgs, "Name")
         if(cursor.moveToFirst()){
             do {
-                val name = cursor.getString(cursor.getColumnIndex("Name"))
+                val pname = cursor.getString(cursor.getColumnIndex("Name"))
                 val age = cursor.getInt(cursor.getColumnIndex("Age"))
                 val gender = cursor.getInt(cursor.getColumnIndex("Gender"))
                 val location = cursor.getString(cursor.getColumnIndex("Location"))
                 val observations = cursor.getString(cursor.getColumnIndex("Observations"))
-                currentPatient = Patient(name, age, gender, location, observations)
+                currentPatient = Patient(pname, age, gender, location, observations)
             }while (cursor.moveToNext())
         }
         return currentPatient!!
