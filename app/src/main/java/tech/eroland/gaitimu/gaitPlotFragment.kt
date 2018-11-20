@@ -16,6 +16,9 @@ import okhttp3.*
 import org.json.JSONObject
 import com.jjoe64.graphview.series.LineGraphSeries
 import kotlinx.android.synthetic.main.chart.view.*
+import java.security.KeyStore
+import java.security.cert.CertificateFactory
+import javax.net.ssl.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -92,8 +95,32 @@ class gaitPlotFragment : Fragment() {
     }
 
     private fun starRegister(){
-        val client = OkHttpClient()
-        val request = Request.Builder().url("http://$ip:$port").addHeader("Sec-WebSocket-Protocol", "androidclient").build()
+        val certificateFactory = CertificateFactory.getInstance("X.509")
+        val inputStream = resources.openRawResource(R.raw.server)
+        val certificate = certificateFactory.generateCertificate(inputStream)
+        inputStream.close()
+
+        val keyStoreType = KeyStore.getDefaultType()
+        val keyStore = KeyStore.getInstance(keyStoreType)
+        keyStore.load(null, null)
+        keyStore.setCertificateEntry("ca", certificate)
+
+        val tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm()
+        val trustManagerFactory = TrustManagerFactory.getInstance(tmfAlgorithm)
+        trustManagerFactory.init(keyStore)
+
+        val trustManagers = trustManagerFactory.trustManagers
+        val x509TrustManager = trustManagers[0] as X509TrustManager
+
+        val sslContext = SSLContext.getInstance("SSL")
+        sslContext.init(null, arrayOf(x509TrustManager), null)
+        var sslSocketFactory = sslContext.socketFactory
+
+        val client = OkHttpClient.Builder()
+                .sslSocketFactory(sslSocketFactory, x509TrustManager)
+                .hostnameVerifier(myHostNameVerifier())
+                .build()
+        val request = Request.Builder().url("https://$ip:$port").addHeader("Sec-WebSocket-Protocol", "androidclient").build()
         val wsListener = webSocketListener()
         ws = client.newWebSocket(request, wsListener)
         client.dispatcher().executorService().shutdown()
@@ -101,6 +128,17 @@ class gaitPlotFragment : Fragment() {
         val jsonObject = JSONObject()
         jsonObject.put("type", "startRecording")
         ws!!.send(jsonObject.toString())
+    }
+
+    private fun myHostNameVerifier(): HostnameVerifier {
+        return object : HostnameVerifier {
+            override fun verify(hostname: String, session: SSLSession): Boolean {
+                if (hostname == ip) {
+                    return true
+                }
+                return false
+            }
+        }
     }
 
     override fun onAttach(context: Context) {
